@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>PT Hello Kognisia Indonesia</title>
+
+    <meta name="description"
+        content="PT Hello Kognisia Indonesia adalah perusahaan yang berfokus pada pengembangan layanan berbasis kognisi, edukasi, dan kesejahteraan mental secara profesional dan berkelanjutan." />
+    <meta name="keywords" content="Hello Kognisia, Hello Konseling, edukasi, kognisi, wellbeing" />
+
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+        :root {
+            --blue-900: #0f2a44;
+            --blue-700: #1f4f8a;
+            --blue-100: #eef3f9;
+
+            --yellow-500: #f2b233;
+
+            --gray-900: #111827;
+            --gray-600: #6b7280;
+            --gray-300: #e5e7eb;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--gray-900);
+            background: #ffffff;
+            line-height: 1.75;
+        }
+
+        a {
+            color: var(--blue-700);
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container {
+            max-width: 1120px;
+            margin: auto;
+            padding: 0 24px;
+        }
+
+        /* ================= HEADER BASE ================= */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 20;
+            background: transparent;
+            transition: all .3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--gray-300);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .brand img {
+            height: 34px;
+        }
+
+        /* ================= NAV DESKTOP ================= */
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            margin-left: 28px;
+            font-size: 14px;
+            color: var(--gray-600);
+            position: relative;
+        }
+
+        nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 0;
+            height: 2px;
+            background: var(--yellow-500);
+            transition: width .25s ease;
+        }
+
+        nav a:hover {
+            color: var(--blue-700);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* ================= HAMBURGER ================= */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nav-toggle span {
+            width: 22px;
+            height: 2px;
+            background: var(--blue-900);
+            display: block;
+            transition: all .3s ease;
+        }
+
+        /* ================= MOBILE ================= */
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: flex;
+            }
+
+            nav {
+                position: absolute;
+                top: 72px;
+                left: 0;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                align-items: center;
+                padding: 24px 0;
+                gap: 18px;
+                display: none;
+            }
+
+            nav.active {
+                display: flex;
+            }
+
+            nav a {
+                margin: 0;
+                font-size: 15px;
+            }
+        }
+
+        /* ================= HERO ================= */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 130px 0 110px;
+            background: #ffffff;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(1400px 600px at 78% 22%,
+                    rgba(31, 79, 138, 0.28),
+                    transparent 62%),
+                radial-gradient(1000px 500px at 18% 35%,
+                    rgba(242, 178, 51, 0.22),
+                    transparent 68%);
+
+            z-index: 0;
+        }
+
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            align-items: center;
+            gap: 70px;
+        }
+
+        .hero h1 {
+            font-size: 44px;
+            line-height: 1.15;
+            color: var(--blue-900);
+            margin-bottom: 22px;
+        }
+
+        .hero h1::after {
+            content: "";
+            display: block;
+            width: 52px;
+            height: 4px;
+            background: var(--yellow-500);
+            margin-top: 18px;
+            border-radius: 2px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--gray-600);
+            max-width: 560px;
+        }
+
+        .hero-logo img {
+            max-width: 300px;
+            filter: drop-shadow(0 30px 40px rgba(15, 42, 68, .15));
+        }
+
+        /* ================= SECTION ================= */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 30px;
+            color: var(--blue-900);
+            margin-bottom: 14px;
+        }
+
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 42px;
+            height: 3px;
+            background: var(--yellow-500);
+            margin-top: 14px;
+        }
+
+        .section-desc {
+            max-width: 720px;
+            color: var(--gray-600);
+            margin-bottom: 60px;
+        }
+
+        /* ================= GRID / CARD ================= */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 32px;
+        }
+
+        .card {
+            background: #ffffff;
+            border: 1px solid var(--gray-300);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all .3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 30px 60px rgba(15, 42, 68, .1);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 18px;
+            color: var(--gray-900);
+        }
+
+        .card p {
+            font-size: 14px;
+            color: var(--gray-600);
+        }
+
+        /* ================= HIGHLIGHT ================= */
+        .highlight {
+            background: var(--blue-100);
+        }
+
+        /* ================= FOOTER ================= */
+        footer {
+            background: var(--blue-900);
+            color: #cbd5e1;
+            padding: 60px 0;
+            font-size: 14px;
+        }
+
+        .footer-bottom {
+            margin-top: 12px;
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+
+            .hero {
+                padding: 90px 0 80px;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+                margin: auto;
+            }
+
+            .hero-logo img {
+                max-width: 220px;
+                margin-top: 36px;
+            }
+
+            section {
+                padding: 80px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header id="header">
+        <div class="container nav">
+            <div class="brand">
+                <a href="index.html">
+                    <img src="logo.png" alt="Hello Kognisia Logo">
+                </a>
+            </div>
+
+            <nav id="nav-menu">
+                <a href="#about">Tentang Kami</a>
+                <a href="#services">Layanan</a>
+                <a href="#contact">Kontak</a>
+            </nav>
+
+            <!-- Hamburger -->
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="container hero-content">
+            <div>
+                <h1>PT Hello Kognisia Indonesia</h1>
+                <p>
+                    Perusahaan pengembang layanan berbasis kognisi, edukasi, dan kesejahteraan mental
+                    dengan pendekatan profesional, humanis, dan berkelanjutan.
+                </p>
+            </div>
+            <div class="hero-logo">
+                <img src="logo.png" alt="Hello Kognisia">
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">Tentang Kami</h2>
+            <p class="section-desc">
+                PT Hello Kognisia Indonesia hadir sebagai perusahaan induk yang mengembangkan
+                berbagai inisiatif berbasis pemahaman manusia, proses berpikir, dan penguatan
+                kesejahteraan personal serta edukasi.
+            </p>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>Human-Centered</h3>
+                    <p>Setiap layanan dirancang dengan manusia sebagai pusat perhatian.</p>
+                </div>
+                <div class="card">
+                    <h3>Berbasis Kognisi</h3>
+                    <p>Pendekatan ilmiah terhadap cara berpikir, belajar, dan bertumbuh.</p>
+                </div>
+                <div class="card">
+                    <h3>Profesional & Adaptif</h3>
+                    <p>Siap tumbuh bersama kebutuhan masyarakat dan teknologi.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="highlight">
+        <div class="container">
+            <h2 class="section-title">Layanan</h2>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>HelloKonseling.online</h3>
+                    <p>
+                        Platform konseling dan psikotes berbasis profesional yang menghubungkan
+                        individu dengan tenaga ahli secara aman dan terpercaya.
+                    </p>
+                    <a href="https://hellokonseling.online" target="_blank">
+                        Kunjungi website →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Kontak</h2>
+
+            <div class="card">
+                <p><strong>PT Hello Kognisia Indonesia</strong></p>
+                <p>Email: info@hellokognisia.id</p>
+                <p>Instagram: @hellokognisia.id</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            © <span id="year"></span> PT Hello Kognisia Indonesia
+            <div class="footer-bottom">
+                Dibangun dengan pendekatan profesional, humanis, dan berkelanjutan.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+        const header = document.getElementById("header");
+        const toggle = document.getElementById("navToggle");
+        const nav = document.getElementById("nav-menu");
+
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 20) {
+                header.classList.add("scrolled");
+            } else {
+                header.classList.remove("scrolled");
+            }
+        });
+
+        toggle.addEventListener("click", () => {
+            nav.classList.toggle("active");
+        });
+    </script>
+
+</body>
+
+</html>
