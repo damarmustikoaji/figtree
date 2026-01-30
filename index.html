@@ -8,10 +8,9 @@
     <title>PT Hello Kognisia Indonesia</title>
 
     <meta name="description"
-        content="PT Hello Kognisia Indonesia adalah perusahaan yang berfokus pada pengembangan layanan berbasis kognisi, edukasi, dan kesejahteraan mental secara profesional dan berkelanjutan." />
-    <meta name="keywords" content="Hello Kognisia, Hello Konseling, edukasi, kognisi, wellbeing" />
+        content="PT Hello Kognisia Indonesia adalah perusahaan yang berfokus pada pengembangan layanan berbasis kognisi, edukasi, dan kesejahteraan mental dengan pendekatan profesional dan human-centered." />
+    <meta name="keywords" content="Hello Kognisia, Hello Konseling, kognisi, edukasi, kesejahteraan mental" />
 
-    <!-- FAVICON -->
     <link rel="icon" type="image/png" href="favicon.png">
 
     <style>
@@ -280,9 +279,71 @@
             color: var(--gray-600);
         }
 
+        /* ================= SERVICE CARD WITH LOGO ================= */
+        .service-card {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .service-card-logo img {
+            max-width: 120px;
+            opacity: 0.95;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .service-card {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .service-card-logo {
+                margin-top: 20px;
+            }
+
+            .service-card-logo img {
+                max-width: 110px;
+            }
+        }
+
         /* ================= HIGHLIGHT ================= */
         .highlight {
             background: var(--blue-100);
+        }
+
+        /* ================= SERVICES BRANDING (FIXED) ================= */
+        .services-wrapper {
+            display: grid;
+            grid-template-columns: minmax(0, 640px) 320px;
+            align-items: center;
+            gap: 48px;
+        }
+
+        .services-branding {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .services-branding img {
+            width: 100%;
+            max-width: 220px;
+            opacity: 0.95;
+            filter: drop-shadow(0 16px 28px rgba(15, 42, 68, 0.14));
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .services-wrapper {
+                grid-template-columns: 1fr;
+                gap: 36px;
+            }
+
+            .services-branding img {
+                max-width: 180px;
+            }
         }
 
         /* ================= FOOTER ================= */
@@ -342,7 +403,7 @@
         <div class="container nav">
             <div class="brand">
                 <a href="index.html">
-                    <img src="logo.png" alt="Hello Kognisia Logo">
+                    <img src="favicon.png" alt="Hello Kognisia Logo">
                 </a>
             </div>
 
@@ -352,7 +413,6 @@
                 <a href="#contact">Kontak</a>
             </nav>
 
-            <!-- Hamburger -->
             <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
                 <span></span>
                 <span></span>
@@ -368,8 +428,8 @@
             <div>
                 <h1>PT Hello Kognisia Indonesia</h1>
                 <p>
-                    Perusahaan pengembang layanan berbasis kognisi, edukasi, dan kesejahteraan mental
-                    dengan pendekatan profesional, humanis, dan berkelanjutan.
+                    Kami mengembangkan layanan berbasis kognisi, edukasi, dan kesejahteraan mental
+                    untuk membantu individu dan organisasi bertumbuh secara sehat, sadar, dan berkelanjutan.
                 </p>
             </div>
             <div class="hero-logo">
@@ -383,23 +443,31 @@
         <div class="container">
             <h2 class="section-title">Tentang Kami</h2>
             <p class="section-desc">
-                PT Hello Kognisia Indonesia hadir sebagai perusahaan induk yang mengembangkan
-                berbagai inisiatif berbasis pemahaman manusia, proses berpikir, dan penguatan
-                kesejahteraan personal serta edukasi.
+                PT Hello Kognisia Indonesia adalah perusahaan yang berperan sebagai pengembang dan
+                pengelola inisiatif berbasis pemahaman, proses berpikir, dan kesehatan mental.
+                Kami percaya bahwa kualitas hidup yang baik dimulai dari cara memahami diri,
+                mengambil keputusan, dan berinteraksi dengan lingkungannya.
             </p>
 
             <div class="grid">
                 <div class="card">
                     <h3>Human-Centered</h3>
-                    <p>Setiap layanan dirancang dengan manusia sebagai pusat perhatian.</p>
+                    <p>
+                        Setiap layanan dirancang dengan empati, keamanan, dan kebutuhan sebagai fokus utama.
+                    </p>
                 </div>
                 <div class="card">
-                    <h3>Berbasis Kognisi</h3>
-                    <p>Pendekatan ilmiah terhadap cara berpikir, belajar, dan bertumbuh.</p>
+                    <h3>Berbasis Kognisi & Edukasi</h3>
+                    <p>
+                        Menggabungkan pendekatan ilmiah, edukatif, dan praktik profesional dalam
+                        mendukung perkembangan individu.
+                    </p>
                 </div>
                 <div class="card">
-                    <h3>Profesional & Adaptif</h3>
-                    <p>Siap tumbuh bersama kebutuhan masyarakat dan teknologi.</p>
+                    <h3>Profesional & Berkelanjutan</h3>
+                    <p>
+                        Dikembangkan bersama tenaga ahli dan dirancang agar relevan untuk jangka panjang.
+                    </p>
                 </div>
             </div>
         </div>
@@ -408,18 +476,29 @@
     <!-- SERVICES -->
     <section id="services" class="highlight">
         <div class="container">
-            <h2 class="section-title">Layanan</h2>
+            <h2 class="section-title">Layanan & Inisiatif</h2>
+            <p class="section-desc">
+                Hello Kognisia mengelola dan mengembangkan berbagai platform dan layanan
+                yang berfokus pada kesehatan mental, edukasi, dan penguatan kapasitas individu.
+            </p>
 
             <div class="grid">
-                <div class="card">
-                    <h3>HelloKonseling.online</h3>
-                    <p>
-                        Platform konseling dan psikotes berbasis profesional yang menghubungkan
-                        individu dengan tenaga ahli secara aman dan terpercaya.
-                    </p>
-                    <a href="https://hellokonseling.online" target="_blank">
-                        Kunjungi website →
-                    </a>
+                <div class="card service-card">
+                    <div>
+                        <h3>HelloKonseling.online</h3>
+                        <p>
+                            Platform konseling dan asesmen psikologis yang menghubungkan individu
+                            dengan psikolog dan tenaga profesional secara aman, privat, dan terpercaya.
+                        </p>
+                        <a href="https://hellokonseling.online" target="_blank">
+                            Kunjungi platform →
+                        </a>
+                    </div>
+
+                    <div class="service-card-logo">
+                        <img src="https://ik.imagekit.io/wmqebf61j/hello-logo.png" alt="Hello Konseling Logo"
+                            loading="lazy" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -432,8 +511,18 @@
 
             <div class="card">
                 <p><strong>PT Hello Kognisia Indonesia</strong></p>
-                <p>Email: info@hellokognisia.id</p>
-                <p>Instagram: @hellokognisia.id</p>
+                <p>
+                    Email:
+                    <a href="mailto:info@hellokognisia.id?subject=Kontak%20PT%20Hello%20Kognisia%20Indonesia">
+                        info@hellokognisia.id
+                    </a>
+                </p>
+                <p>
+                    Instagram:
+                    <a href="https://www.instagram.com/hellokognisia.id" target="_blank">
+                        @hellokognisia.id
+                    </a>
+                </p>
             </div>
         </div>
     </section>
@@ -442,7 +531,7 @@
         <div class="container">
             © <span id="year"></span> PT Hello Kognisia Indonesia
             <div class="footer-bottom">
-                Dibangun dengan pendekatan profesional, humanis, dan berkelanjutan.
+                Mengembangkan melalui pemahaman, edukasi, dan kesejahteraan mental.
             </div>
         </div>
     </footer>
