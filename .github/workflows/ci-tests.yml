@@ -11,13 +11,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}
 
       - name: Install test dependencies
         working-directory: tests
@@ -26,6 +30,9 @@ jobs:
       - name: Install Playwright Chromium
         working-directory: tests
         run: npx playwright install chromium
+
+      - name: Prepare test-results directory
+        run: mkdir -p tests/test-results
 
       - name: Start static server
         run: npx serve . -l 3000 &
@@ -37,9 +44,24 @@ jobs:
         working-directory: tests
         run: npm test
 
-      - name: Upload test artifacts on failure
-        if: failure()
+      - name: Upload Playwright HTML report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-test-results
+          name: playwright-html-report
+          path: tests/playwright-report
+
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-screenshots
           path: tests/test-results
+
+      - name: Test Summary
+        if: always()
+        run: |
+          echo "## Playwright Test Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- Project: **PT Hello Kognisia Indonesia**" >> $GITHUB_STEP_SUMMARY
+          echo "- Base URL: http://localhost:3000" >> $GITHUB_STEP_SUMMARY
+          echo "- Browser: Chromium" >> $GITHUB_STEP_SUMMARY

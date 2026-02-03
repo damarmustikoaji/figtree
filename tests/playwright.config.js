@@ -10,5 +10,8 @@ export default defineConfig({
     headless: true,
     screenshot: 'only-on-failure'
   },
-  reporter: [['list']]
+  reporter: [
+    ['list'],
+    ['html', { outputFolder: 'playwright-report', open: 'never' }]
+  ]
 });
