@@ -1,0 +1,45 @@
+name: CI Tests
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    name: Run Playwright Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Install dependencies khusus testing
+      - name: Install test dependencies
+        working-directory: tests
+        run: npm ci
+
+      # Jalankan static server untuk website
+      - name: Start local static server
+        run: npx serve . -l 3000 &
+
+      - name: Wait for server
+        run: npx wait-on http://localhost:3000
+
+      # Jalankan Playwright test
+      - name: Run Playwright tests
+        working-directory: tests
+        run: npm test
+
+      # Upload screenshot jika test gagal
+      - name: Upload test artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-test-results
+          path: tests/test-results
