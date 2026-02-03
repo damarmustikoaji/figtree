@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "localhost-serve": "npx serve .. -l 3000",
-    "test": "playwright test"
+    "test": "playwright test --workers=1"
   },
   "devDependencies": {
     "@playwright/test": "^1.41.0",
