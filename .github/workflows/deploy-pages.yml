@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Release
 
 on:
   push:
@@ -10,8 +10,80 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+
+  # ─────────────────────────────────────────────
+  # JOB 1 — Jalankan semua test terlebih dahulu
+  # Deploy tidak akan jalan jika job ini gagal
+  # ─────────────────────────────────────────────
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install test dependencies
+        working-directory: tests
+        run: npm ci
+
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('tests/package-lock.json') }}
+          restore-keys: |
+            playwright-${{ runner.os }}-
+
+      - name: Install Playwright Chromium + system deps
+        working-directory: tests
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps chromium
+
+      - name: Install Playwright system deps only (cache hit)
+        working-directory: tests
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium
+
+      - name: Prepare test-results directory
+        run: mkdir -p tests/test-results
+
+      - name: Start static server
+        working-directory: tests
+        run: npx serve .. -l 3000 &
+
+      - name: Wait for server
+        working-directory: tests
+        run: npx wait-on http://localhost:3000 --timeout 30000
+
+      - name: Run Playwright tests
+        working-directory: tests
+        run: npm test
+
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: tests/playwright-report
+          retention-days: 14
+
+  # ─────────────────────────────────────────────
+  # JOB 2 — Deploy ke GitHub Pages
+  # Hanya jalan jika semua test passed
+  # ─────────────────────────────────────────────
   deploy:
-    name: Deploy Website
+    name: Deploy to GitHub Pages
+    needs: test
     runs-on: ubuntu-latest
 
     permissions:
@@ -24,8 +96,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 1
 
@@ -45,3 +116,37 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  # ─────────────────────────────────────────────
+  # JOB 3 — Buat GitHub Release dari CHANGELOG
+  # Hanya jalan setelah deploy berhasil
+  # ─────────────────────────────────────────────
+  release:
+    name: Create GitHub Release
+    needs: deploy
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Extract release notes from CHANGELOG.md
+        run: |
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          awk "/^## \[$TAG_VERSION\]/{found=1; next} /^## \[/{if(found) exit} found{print}" CHANGELOG.md \
+            | sed '/^[[:space:]]*$/{ /./!d }' \
+            > release_notes.md
+          echo "Extracted notes for v$TAG_VERSION:"
+          cat release_notes.md
+
+      - name: Create GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create ${{ github.ref_name }} \
+            --title "Release ${{ github.ref_name }}" \
+            --notes-file release_notes.md
