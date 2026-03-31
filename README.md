@@ -13,6 +13,7 @@ Website resmi **PT Hello Kognisia Indonesia**, menampilkan profil perusahaan, la
 - [CI/CD](#cicd)
 - [Deployment](#deployment)
 - [Kontak](#kontak)
+- [Changelog](#changelog)
 - [Lisensi](#lisensi)
 
 ---
@@ -173,6 +174,12 @@ Untuk GitHub Pages, deployment dilakukan secara otomatis melalui workflow saat t
 - Email: info@hellokognisia.id
 - Website: https://www.hellokognisia.id
 - Instagram: https://www.instagram.com/hellokognisia.id
+
+---
+
+## Changelog
+
+Riwayat perubahan lengkap tersedia di [CHANGELOG.md](CHANGELOG.md).
 
 ---
 

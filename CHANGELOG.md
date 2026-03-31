@@ -1,0 +1,94 @@
+# Changelog
+
+Semua perubahan penting pada proyek ini didokumentasikan di file ini.
+
+Format mengikuti [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) dan proyek ini mengikuti [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+---
+
+## [1.1.0] - 2026-03-31
+
+### Ditambahkan
+
+**Halaman & Konten**
+- Google Fonts Inter di semua halaman agar tipografi konsisten di semua browser
+- Meta tag `og:url` di `index.html`
+- Navigasi header (Tentang, Layanan, Kontak) di halaman `privacy-policy.html` dan `disclaimer-etika.html`
+- Garis bawah kuning pada H1 halaman legal, konsisten dengan visual homepage
+- Script tahun otomatis di footer `privacy-policy.html` dan `disclaimer-etika.html` (sebelumnya kosong)
+- CSS `* { box-sizing: border-box }` di halaman legal untuk konsistensi kalkulasi lebar container
+
+**Pengujian**
+- 16 test case baru, total dari 5 menjadi 21 test
+- Coverage baru: Open Graph tags, Schema.org JSON-LD, header scroll behavior, footer year, keberadaan semua section, external link behavior, aksesibilitas dasar (lang, alt, viewport), halaman legal (status, konten, navigasi)
+
+**CI/CD**
+- Push ke `master` sebagai trigger CI, sebelumnya hanya pull request
+- `concurrency` group di `deploy-pages.yml` untuk mencegah deploy konflik
+- `environment` declaration dengan output URL di `deploy-pages.yml`
+- Step "Prepare site files" di `deploy-pages.yml` agar hanya file yang diperlukan yang ter-deploy
+- `retention-days: 14` untuk artifact Playwright report dan screenshot
+- `restore-keys` fallback pada cache Playwright di CI
+- `CHANGELOG.md`
+
+### Diubah
+
+**Wording & Bahasa**
+- H1 `privacy-policy.html`: "Privacy Policy" menjadi "Kebijakan Privasi"
+- H1 `disclaimer-etika.html`: "Disclaimer & Etika Profesional" menjadi "Sanggahan & Etika Profesional"
+- `<title>` browser kedua halaman legal disesuaikan dengan judul H1
+- Footer link teks di semua halaman: "Privacy Policy" menjadi "Kebijakan Privasi", "Disclaimer & Etika" menjadi "Sanggahan & Etika"
+- "bertumbuh" menjadi "berkembang" (kata baku KBBI)
+- Card "Berbasis Sains & Edukasi" ditambahkan subjek "Kami" agar konsisten dengan card lainnya
+- "secara privat dan aman" menjadi "secara terjaga dan aman"
+- "Kami dapat mengumpulkan" menjadi "Kami mengumpulkan" (menghilangkan ambiguitas)
+- "komunikasi profesional yang relevan" menjadi "komunikasi yang berkaitan dengan layanan"
+- "menarik persetujuan" menjadi "mencabut persetujuan" (istilah hukum yang tepat)
+- "konsultasi profesional yang sesuai" menjadi "yang memadai"
+- "kerahasiaan, privasi" menjadi "kerahasiaan" (menghapus redundansi makna)
+- Inline text di `disclaimer-etika.html`: "halaman Disclaimer & Etika" menjadi "halaman Sanggahan & Etika"
+
+**UI/UX**
+- `og:image` di `index.html` diubah ke absolute URL (sebelumnya relative, tidak berfungsi untuk social media preview)
+- Card section Layanan dibatasi lebar maksimum via `.grid--solo` agar tidak stretch full-width
+- Hero bottom padding dikurangi dari `100px` menjadi `64px` untuk memperkecil gap ke section berikutnya
+- Inline styles pada section Kontak dan footer dipindah ke CSS class `.card-note` dan `.footer-link`
+- Container header halaman legal disesuaikan ke `max-width: 1120px` agar posisi logo dan navigasi identik dengan homepage saat berpindah halaman
+- `section .container` halaman legal dibatasi `max-width: 900px` untuk keterbacaan konten artikel
+
+**Pengujian**
+- Playwright timeout dinaikkan dari 5 detik menjadi 15 detik
+- Test navigasi legal pages dipecah menjadi dua test independen (sebelumnya chained, rentan error)
+- Smoke test assertions disesuaikan dengan wording terbaru
+
+**CI/CD**
+- Cache key Playwright ditambahkan `hashFiles('tests/package-lock.json')` agar cache tidak stale saat versi berubah
+- `npx serve` dan `npx wait-on` menggunakan `working-directory: tests` agar pakai binary dari `node_modules` lokal
+- Playwright install menggunakan `--with-deps` untuk menyertakan system dependencies di Ubuntu
+- `wait-on` ditambahkan `--timeout 30000`
+- Deploy workflow menggunakan `fetch-depth: 1` untuk mempercepat checkout
+- `README.md` diperbarui lengkap dengan daftar isi, struktur proyek, panduan pengujian, dan dokumentasi CI/CD
+
+### Diperbaiki
+
+- Tahun footer kosong di `privacy-policy.html` dan `disclaimer-etika.html` karena script tidak ada
+- Posisi header bergeser saat navigasi dari homepage ke halaman legal akibat perbedaan `box-sizing` dan `max-width` container
+- Test navigasi yang chained menyebabkan klik elemen pada halaman yang salah
+
+### Dihapus
+
+- Dependensi `@axe-core/playwright` dari `tests/package.json` (terpasang tapi tidak digunakan)
+- Semua inline style dari HTML (dipindah ke CSS)
+- Emoji dan icon dari `README.md`
+
+---
+
+## [1.0.0] - Rilis Awal
+
+Rilis pertama website company profile PT Hello Kognisia Indonesia dengan fitur:
+
+- Halaman utama dengan section Hero, Tentang Kami, Layanan, dan Kontak
+- Halaman Kebijakan Privasi dan Sanggahan & Etika
+- SEO meta tags, Open Graph, dan Schema.org JSON-LD
+- Playwright smoke tests
+- GitHub Actions untuk CI dan deployment ke GitHub Pages
