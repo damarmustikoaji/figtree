@@ -5,11 +5,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Privacy Policy | PT Hello Kognisia Indonesia</title>
+    <title>Kebijakan Privasi | PT Hello Kognisia Indonesia</title>
 
     <meta name="description"
         content="Kebijakan Privasi PT Hello Kognisia Indonesia terkait pengumpulan, penggunaan, dan perlindungan data pengguna." />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="favicon.png">
 
     <style>
@@ -21,6 +24,10 @@
             --gray-900: #111827;
             --gray-600: #6b7280;
             --gray-300: #e5e7eb;
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
@@ -36,7 +43,7 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1120px;
             margin: auto;
             padding: 0 24px;
         }
@@ -44,6 +51,10 @@
         header {
             background: #fff;
             border-bottom: 1px solid var(--gray-300);
+        }
+
+        section .container {
+            max-width: 900px;
         }
 
         .nav {
@@ -57,6 +68,17 @@
             height: 34px;
         }
 
+        nav a {
+            margin-left: 28px;
+            font-size: 14px;
+            color: var(--gray-600);
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            color: var(--blue-700);
+        }
+
         section {
             padding: 60px 0;
         }
@@ -65,6 +87,15 @@
             font-size: 34px;
             color: var(--blue-900);
             margin-bottom: 16px;
+        }
+
+        h1::after {
+            content: "";
+            display: block;
+            width: 42px;
+            height: 3px;
+            background: var(--yellow-500);
+            margin-top: 10px;
         }
 
         h2 {
@@ -90,6 +121,11 @@
             margin-top: 8px;
             color: #94a3b8;
         }
+
+        .footer-link {
+            color: #94a3b8;
+            font-size: smaller;
+        }
     </style>
 </head>
 
@@ -103,13 +139,18 @@
                     <img src="favicon.png" alt="Hello Kognisia Logo">
                 </a>
             </div>
+            <nav>
+                <a href="index.html#about">Tentang</a>
+                <a href="index.html#services">Layanan</a>
+                <a href="index.html#contact">Kontak</a>
+            </nav>
         </div>
     </header>
 
     <!-- CONTENT -->
     <section>
         <div class="container">
-            <h1>Privacy Policy</h1>
+            <h1>Kebijakan Privasi</h1>
             <p><strong>Terakhir diperbarui:</strong> Januari 2026</p>
 
             <p>
@@ -119,14 +160,14 @@
 
             <h2>1. Informasi yang Kami Kumpulkan</h2>
             <p>
-                Kami dapat mengumpulkan informasi yang diberikan secara sukarela seperti nama dan alamat email,
+                Kami mengumpulkan informasi yang diberikan secara sukarela seperti nama dan alamat email,
                 serta informasi teknis dasar seperti alamat IP dan jenis perangkat.
             </p>
 
             <h2>2. Penggunaan Informasi</h2>
             <p>
                 Informasi digunakan untuk menyediakan layanan, meningkatkan kualitas platform,
-                menjaga keamanan sistem, dan melakukan komunikasi profesional yang relevan.
+                menjaga keamanan sistem, dan melakukan komunikasi yang berkaitan dengan layanan.
             </p>
 
             <h2>3. Perlindungan Data</h2>
@@ -144,7 +185,7 @@
             <h2>5. Hak Pengguna</h2>
             <p>
                 Pengguna berhak meminta akses, perbaikan, atau penghapusan data pribadi,
-                serta menarik persetujuan penggunaan data kapan saja.
+                serta mencabut persetujuan penggunaan data kapan saja.
             </p>
 
             <h2>6. Perubahan Kebijakan</h2>
@@ -166,10 +207,14 @@
         <div class="container">
             © <span id="year"></span> PT Hello Kognisia Indonesia
             <small>Membangun kualitas hidup melalui cara berpikir yang sehat dan sadar.</small>
-            <a style="color: #94a3b8; font-size: smaller;" href="privacy-policy.html">Privacy Policy</a> ·
-            <a style="color: #94a3b8; font-size: smaller;" href="disclaimer-etika.html">Disclaimer & Etika</a>
+            <a class="footer-link" href="privacy-policy.html">Kebijakan Privasi</a> ·
+            <a class="footer-link" href="disclaimer-etika.html">Sanggahan & Etika</a>
         </div>
     </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
 
 </body>
 

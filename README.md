@@ -1,106 +1,181 @@
-# PT Hello Kognisia Indonesia – Company Profile Website
+# PT Hello Kognisia Indonesia — Company Profile Website
 
-Website resmi **PT Hello Kognisia Indonesia**, menampilkan profil perusahaan, nilai, layanan, serta informasi kontak dengan pendekatan visual yang elegan, profesional, dan berorientasi pada kepercayaan publik serta institusi.
-
-Website ini dirancang sebagai **company profile statis** yang ringan, mudah dirawat, dan siap digunakan untuk kebutuhan branding, kredibilitas, serta SEO.
+Website resmi **PT Hello Kognisia Indonesia**, menampilkan profil perusahaan, layanan, dan informasi kontak. Dibangun sebagai static site yang ringan, mudah dirawat, dan siap untuk kebutuhan branding serta SEO.
 
 ---
 
-## ✨ Tujuan Proyek
+## Daftar Isi
 
-- Menyediakan website profil perusahaan yang **jelas, elegan, dan terpercaya**
-- Mencerminkan nilai **kognisi, edukasi, dan kesehatan mental**
-- Mendukung **discoverability (SEO)** dan kebutuhan institusional
-- Menjadi fondasi untuk pengembangan platform dan inisiatif selanjutnya
-
----
-
-## 🧠 Tentang PT Hello Kognisia Indonesia
-
-PT Hello Kognisia Indonesia adalah perusahaan yang mengembangkan dan mengelola inisiatif di bidang:
-- Kognisi & proses berpikir
-- Edukasi
-- Kesehatan dan kesejahteraan mental
-
-Pendekatan yang digunakan bersifat **human-centered**, **berbasis sains**, serta menjunjung tinggi **etika profesional dan privasi**.
+- [Tentang Proyek](#tentang-proyek)
+- [Struktur Proyek](#struktur-proyek)
+- [Menjalankan Secara Lokal](#menjalankan-secara-lokal)
+- [Pengujian](#pengujian)
+- [CI/CD](#cicd)
+- [Deployment](#deployment)
+- [Kontak](#kontak)
+- [Lisensi](#lisensi)
 
 ---
 
-## 📁 Struktur Proyek
+## Tentang Proyek
+
+PT Hello Kognisia Indonesia adalah perusahaan yang mengembangkan inisiatif di bidang kognisi, edukasi, dan kesehatan mental dengan pendekatan yang human-centered, berbasis sains, dan menjunjung tinggi etika profesional.
+
+Website ini dibangun dengan pure HTML dan CSS tanpa framework atau build tools, sehingga:
+
+- Tidak membutuhkan proses kompilasi
+- Mudah di-maintain oleh siapa pun
+- Performa ringan dan cepat dimuat
+- Dapat di-deploy ke platform hosting mana pun
+
+### Halaman
+
+| Halaman | File | Keterangan |
+|---|---|---|
+| Beranda | `index.html` | Hero, Tentang Kami, Layanan, Kontak |
+| Kebijakan Privasi | `privacy-policy.html` | Kebijakan pengelolaan data pengguna |
+| Sanggahan & Etika | `disclaimer-etika.html` | Batasan layanan dan etika profesional |
+| Halaman 404 | `404.html` | Halaman tidak ditemukan |
+
+---
+
+## Struktur Proyek
 
 ```
 /
+├── .github/
+│   └── workflows/
+│       ├── ci-tests.yml          # Workflow pengujian otomatis
+│       └── deploy-pages.yml      # Workflow deployment ke GitHub Pages
+├── tests/
+│   ├── smoke.spec.js             # Playwright smoke tests
+│   ├── playwright.config.js      # Konfigurasi Playwright
+│   └── package.json              # Dependensi pengujian
 ├── index.html
 ├── privacy-policy.html
 ├── disclaimer-etika.html
+├── 404.html
 ├── favicon.png
 ├── logo.png
 ├── robots.txt
 ├── sitemap.xml
-└── README.md
+├── .htaccess
+└── CNAME
 ```
 
 ---
 
-## 🧩 Fitur Utama
+## Menjalankan Secara Lokal
 
-- Desain responsif (desktop & mobile)
-- Visual bersih, tenang, dan profesional
-- SEO-ready (meta tags, Open Graph, schema.org)
-- YMYL-compliant (Privacy Policy & Disclaimer)
-- Tanpa dependency eksternal (pure HTML + CSS)
-- Performa ringan & mudah di-deploy
+Tidak dibutuhkan instalasi apa pun untuk membuka halaman website. Cukup buka file `index.html` langsung di browser.
 
----
+Namun untuk menjalankan pengujian, dibutuhkan server lokal terlebih dahulu. Gunakan perintah berikut dari direktori `tests/`:
 
-## 🔍 SEO & Indexing
+```bash
+cd tests
+npm install
+npm run localhost-serve
+```
 
-Website ini sudah disiapkan untuk indexing Google dengan:
-- Meta title & description
-- Open Graph tags
-- Schema.org Organization (JSON-LD)
-- robots.txt & sitemap.xml
-- Konten original & informatif
+Server akan berjalan di `http://localhost:3000`.
 
 ---
 
-## 🛡️ Privacy, Etika & Trust
+## Pengujian
 
-Karena berada di domain **kesehatan mental (YMYL)**, website ini dilengkapi dengan:
-- Privacy Policy
-- Disclaimer & Etika Profesional
+Proyek ini menggunakan [Playwright](https://playwright.dev) untuk smoke testing. Pengujian mencakup:
 
-Hal ini penting untuk kepercayaan pengguna, kepatuhan etika, serta keamanan SEO jangka panjang.
+- Rendering halaman dan status HTTP
+- Keberadaan semua section dan konten utama
+- Navigasi antar halaman
+- Meta tag SEO dan Open Graph
+- Schema.org JSON-LD
+- Konten dan struktur halaman legal
+- Informasi kontak dan trust signals
+- Atribut aksesibilitas dasar
+
+### Menjalankan Pengujian
+
+Pastikan server lokal sudah berjalan (lihat bagian [Menjalankan Secara Lokal](#menjalankan-secara-lokal)), lalu jalankan dari direktori `tests/`:
+
+```bash
+npm test
+```
+
+Laporan HTML hasil pengujian tersedia di `tests/playwright-report/` setelah pengujian selesai.
+
+### Prasyarat
+
+- Node.js 20 atau lebih baru
+- Browser Chromium (diinstall otomatis oleh Playwright)
+
+```bash
+cd tests
+npm install
+npx playwright install chromium
+```
 
 ---
 
-## 🚀 Deployment
+## CI/CD
 
-Website ini bersifat statis dan dapat di-deploy di:
-- Shared hosting
-- VPS
+### Pengujian Otomatis (`ci-tests.yml`)
+
+Berjalan otomatis pada setiap:
+
+- Push ke branch `master`
+- Pull request ke branch `master`
+- Trigger manual via GitHub Actions
+
+Pipeline melakukan:
+1. Install dependensi pengujian
+2. Install browser Chromium dengan system dependencies
+3. Menjalankan server lokal
+4. Menjalankan semua Playwright tests
+5. Meng-upload laporan HTML dan screenshot sebagai artifact (disimpan 14 hari)
+
+### Deployment Otomatis (`deploy-pages.yml`)
+
+Berjalan otomatis ketika tag versi semantik di-push, contoh: `v1.0.0`.
+
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+Pipeline melakukan:
+1. Checkout repository
+2. Menyiapkan file yang akan diserver (HTML, aset, robots.txt, sitemap)
+3. Upload artifact ke GitHub Pages
+4. Deploy ke GitHub Pages
+
+URL deployment ditampilkan di tab **Environments** pada halaman repository GitHub.
+
+---
+
+## Deployment
+
+Website ini bersifat statis dan dapat di-deploy ke platform mana pun yang mendukung static hosting. Cukup upload seluruh file ke root domain.
+
+Platform yang didukung:
+
+- GitHub Pages (sudah dikonfigurasi)
 - Cloudflare Pages
-- Netlify / Vercel
-- GitHub Pages
 
-Cukup upload seluruh file ke root domain.
+Untuk GitHub Pages, deployment dilakukan secara otomatis melalui workflow saat tag versi di-push (lihat bagian [CI/CD](#cicd)).
 
 ---
 
-## 📬 Kontak
+## Kontak
 
-**PT Hello Kognisia Indonesia**  
-Email: info@hellokognisia.id  
-Website: https://www.hellokognisia.id  
-Instagram: https://www.instagram.com/hellokognisia.id  
+**PT Hello Kognisia Indonesia**
 
----
-
-## 📄 Lisensi
-
-Hak cipta © PT Hello Kognisia Indonesia.  
-Seluruh konten, desain, dan materi dilindungi oleh hukum yang berlaku.
+- Email: info@hellokognisia.id
+- Website: https://www.hellokognisia.id
+- Instagram: https://www.instagram.com/hellokognisia.id
 
 ---
 
-*Membangun kualitas hidup melalui cara berpikir yang sehat dan sadar.*
+## Lisensi
+
+Hak cipta &copy; PT Hello Kognisia Indonesia. Seluruh konten, desain, dan materi dilindungi oleh hukum yang berlaku.

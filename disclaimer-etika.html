@@ -5,19 +5,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Disclaimer & Etika | PT Hello Kognisia Indonesia</title>
+    <title>Sanggahan & Etika Profesional | PT Hello Kognisia Indonesia</title>
 
     <meta name="description"
         content="Disclaimer dan Etika Profesional PT Hello Kognisia Indonesia dalam penyediaan layanan dan informasi." />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="favicon.png">
 
     <style>
         :root {
             --blue-900: #0f2a44;
             --blue-700: #1f4f8a;
+            --yellow-500: #f2b233;
             --gray-600: #6b7280;
             --gray-300: #e5e7eb;
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
@@ -33,7 +41,7 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1120px;
             margin: auto;
             padding: 0 24px;
         }
@@ -43,10 +51,26 @@
             border-bottom: 1px solid var(--gray-300);
         }
 
+        section .container {
+            max-width: 900px;
+        }
+
         .nav {
             display: flex;
+            justify-content: space-between;
             align-items: center;
             height: 72px;
+        }
+
+        nav a {
+            margin-left: 28px;
+            font-size: 14px;
+            color: var(--gray-600);
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            color: var(--blue-700);
         }
 
         section {
@@ -57,6 +81,15 @@
             font-size: 34px;
             color: var(--blue-900);
             margin-bottom: 16px;
+        }
+
+        h1::after {
+            content: "";
+            display: block;
+            width: 42px;
+            height: 3px;
+            background: var(--yellow-500);
+            margin-top: 10px;
         }
 
         h2 {
@@ -82,6 +115,11 @@
             margin-top: 8px;
             color: #94a3b8;
         }
+
+        .footer-link {
+            color: #94a3b8;
+            font-size: smaller;
+        }
     </style>
 </head>
 
@@ -90,16 +128,23 @@
     <!-- HEADER -->
     <header>
         <div class="container nav">
-            <a href="index.html">
-                <img src="favicon.png" alt="Hello Kognisia Logo" height="34">
-            </a>
+            <div class="brand">
+                <a href="index.html">
+                    <img src="favicon.png" alt="Hello Kognisia Logo" height="34">
+                </a>
+            </div>
+            <nav>
+                <a href="index.html#about">Tentang</a>
+                <a href="index.html#services">Layanan</a>
+                <a href="index.html#contact">Kontak</a>
+            </nav>
         </div>
     </header>
 
     <!-- CONTENT -->
     <section>
         <div class="container">
-            <h1>Disclaimer & Etika Profesional</h1>
+            <h1>Sanggahan & Etika Profesional</h1>
 
             <p>
                 Informasi dan layanan yang disediakan oleh PT Hello Kognisia Indonesia
@@ -117,13 +162,13 @@
             <h2>2. Batasan Tanggung Jawab</h2>
             <p>
                 PT Hello Kognisia Indonesia tidak bertanggung jawab atas keputusan atau tindakan
-                yang diambil berdasarkan informasi di situs ini tanpa konsultasi profesional yang sesuai.
+                yang diambil berdasarkan informasi di situs ini tanpa konsultasi profesional yang memadai.
             </p>
 
             <h2>3. Etika & Profesionalisme</h2>
             <p>
                 Setiap layanan dikembangkan dengan menjunjung tinggi prinsip etika profesional,
-                kerahasiaan, privasi, dan kesejahteraan pengguna.
+                kerahasiaan dan kesejahteraan pengguna.
             </p>
 
             <h2>4. Tautan Pihak Ketiga</h2>
@@ -135,7 +180,7 @@
             <h2>5. Persetujuan Penggunaan</h2>
             <p>
                 Dengan menggunakan situs ini, Anda dianggap telah membaca, memahami,
-                dan menyetujui ketentuan dalam halaman Disclaimer & Etika ini.
+                dan menyetujui ketentuan dalam halaman Sanggahan & Etika ini.
             </p>
         </div>
     </section>
@@ -145,10 +190,14 @@
         <div class="container">
             © <span id="year"></span> PT Hello Kognisia Indonesia
             <small>Membangun kualitas hidup melalui cara berpikir yang sehat dan sadar.</small>
-            <a style="color: #94a3b8; font-size: smaller;" href="privacy-policy.html">Privacy Policy</a> ·
-            <a style="color: #94a3b8; font-size: smaller;" href="disclaimer-etika.html">Disclaimer & Etika</a>
+            <a class="footer-link" href="privacy-policy.html">Kebijakan Privasi</a> ·
+            <a class="footer-link" href="disclaimer-etika.html">Sanggahan & Etika</a>
         </div>
     </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
 
 </body>
 
