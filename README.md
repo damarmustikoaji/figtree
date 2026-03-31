@@ -11,6 +11,7 @@ Website resmi **PT Hello Kognisia Indonesia**, menampilkan profil perusahaan, la
 - [Menjalankan Secara Lokal](#menjalankan-secara-lokal)
 - [Pengujian](#pengujian)
 - [CI/CD](#cicd)
+- [Alur Kerja & Release](#alur-kerja--release)
 - [Deployment](#deployment)
 - [Kontak](#kontak)
 - [Changelog](#changelog)
@@ -120,37 +121,172 @@ npx playwright install chromium
 
 ## CI/CD
 
-### Pengujian Otomatis (`ci-tests.yml`)
+### Pengujian Harian (`ci-tests.yml`)
 
-Berjalan otomatis pada setiap:
-
-- Push ke branch `master`
-- Pull request ke branch `master`
-- Trigger manual via GitHub Actions
+Berjalan otomatis pada setiap push ke `master` dan pull request, untuk memberikan feedback cepat selama pengembangan.
 
 Pipeline melakukan:
-1. Install dependensi pengujian
-2. Install browser Chromium dengan system dependencies
-3. Menjalankan server lokal
-4. Menjalankan semua Playwright tests
-5. Meng-upload laporan HTML dan screenshot sebagai artifact (disimpan 14 hari)
+1. Install dependensi dan browser Chromium
+2. Menjalankan server lokal
+3. Menjalankan semua 21 Playwright test
+4. Upload laporan HTML dan screenshot sebagai artifact (disimpan 14 hari)
 
-### Deployment Otomatis (`deploy-pages.yml`)
+### Pipeline Release (`deploy-pages.yml`)
 
-Berjalan otomatis ketika tag versi semantik di-push, contoh: `v1.0.0`.
+Berjalan otomatis ketika tag versi di-push. Terdiri dari tiga job yang berjalan berurutan — job berikutnya hanya jalan jika job sebelumnya berhasil.
 
-```bash
-git tag v1.0.0
-git push origin v1.0.0
+```
+tag v*.*.* di-push
+       │
+       ▼
+  [1] test     — Jalankan semua Playwright tests
+       │          Jika gagal, pipeline berhenti di sini
+       ▼
+  [2] deploy   — Deploy file ke GitHub Pages
+       │          Jika gagal, release tidak dibuat
+       ▼
+  [3] release  — Buat GitHub Release otomatis
+                  dengan isi dari CHANGELOG.md
 ```
 
-Pipeline melakukan:
-1. Checkout repository
-2. Menyiapkan file yang akan diserver (HTML, aset, robots.txt, sitemap)
-3. Upload artifact ke GitHub Pages
-4. Deploy ke GitHub Pages
-
 URL deployment ditampilkan di tab **Environments** pada halaman repository GitHub.
+
+---
+
+## Alur Kerja & Release
+
+### Pengembangan Sehari-hari
+
+Semua perubahan dilakukan langsung di branch `master` untuk proyek ini karena sifatnya yang sederhana (static site, satu kontributor).
+
+**Langkah standar untuk setiap perubahan:**
+
+```bash
+# 1. Pastikan kondisi lokal up to date dengan remote
+git pull origin master
+
+# 2. Buat perubahan pada file yang diperlukan
+
+# 3. Cek file apa saja yang berubah
+git status
+
+# 4. Stage file yang akan di-commit
+git add nama-file.html
+
+# 5. Commit dengan pesan yang deskriptif
+git commit -m "fix: perbaiki teks hero section"
+
+# 6. Push ke remote
+git push origin master
+```
+
+CI Tests akan berjalan otomatis setelah push. Cek hasilnya di tab **Actions** pada GitHub.
+
+### Konvensi Pesan Commit
+
+Gunakan format berikut agar riwayat commit mudah dibaca:
+
+| Prefix | Digunakan untuk |
+|---|---|
+| `feat:` | Penambahan fitur atau konten baru |
+| `fix:` | Perbaikan bug atau kesalahan |
+| `style:` | Perubahan tampilan/CSS tanpa mengubah fungsi |
+| `content:` | Perubahan teks atau wording |
+| `ci:` | Perubahan konfigurasi workflow/CI |
+| `docs:` | Perubahan dokumentasi (README, CHANGELOG) |
+| `chore:` | Pemeliharaan umum yang tidak masuk kategori lain |
+
+Contoh:
+```bash
+git commit -m "content: ubah tagline hero section"
+git commit -m "fix: perbaiki link navigasi di halaman legal"
+git commit -m "style: sesuaikan padding section layanan"
+```
+
+### Proses Release
+
+Release dilakukan ketika ada sekumpulan perubahan yang siap dipublikasikan ke production.
+
+**Langkah 1 — Pastikan semua perubahan sudah di-push dan CI passed**
+
+```bash
+git push origin master
+# Tunggu CI Tests selesai dan passed di GitHub Actions
+```
+
+**Langkah 2 — Tentukan nomor versi**
+
+Proyek ini menggunakan [Semantic Versioning](https://semver.org/) dengan format `MAJOR.MINOR.PATCH`:
+
+| Jenis perubahan | Bagian yang naik | Contoh |
+|---|---|---|
+| Perbaikan kecil, typo, konten minor | `PATCH` | `1.1.0` → `1.1.1` |
+| Fitur baru, halaman baru, perubahan signifikan | `MINOR` | `1.1.0` → `1.2.0` |
+| Perubahan besar yang mengubah struktur fundamental | `MAJOR` | `1.1.0` → `2.0.0` |
+
+**Langkah 3 — Update `CHANGELOG.md`**
+
+Tambahkan section versi baru di bagian atas, tepat di bawah header, sebelum versi sebelumnya:
+
+```markdown
+## [1.2.0] - YYYY-MM-DD
+
+### Ditambahkan
+- Deskripsi fitur atau konten yang ditambahkan
+
+### Diubah
+- Deskripsi perubahan yang dilakukan
+
+### Diperbaiki
+- Deskripsi bug yang diperbaiki
+
+### Dihapus
+- Deskripsi yang dihapus
+```
+
+Hanya cantumkan kategori yang relevan. Jika tidak ada yang dihapus, bagian `### Dihapus` tidak perlu ditulis.
+
+**Langkah 4 — Commit CHANGELOG**
+
+```bash
+git add CHANGELOG.md
+git commit -m "docs: tambah changelog v1.2.0"
+git push origin master
+```
+
+**Langkah 5 — Buat dan push tag**
+
+```bash
+git tag v1.2.0
+git push origin v1.2.0
+```
+
+Setelah tag di-push, pipeline release berjalan otomatis:
+- Semua test dijalankan
+- Jika passed, site di-deploy ke GitHub Pages
+- GitHub Release dibuat otomatis dengan isi dari section `[1.2.0]` di `CHANGELOG.md`
+
+**Langkah 6 — Verifikasi**
+
+1. Buka tab **Actions** di GitHub — pastikan ketiga job (test, deploy, release) berwarna hijau
+2. Buka tab **Releases** di GitHub — pastikan release baru muncul dengan catatan yang benar
+3. Buka URL production dan pastikan perubahan sudah tampil
+
+### Menghapus Tag yang Salah
+
+Jika tag di-push tapi ada yang perlu diperbaiki sebelum release:
+
+```bash
+# Hapus tag di lokal
+git tag -d v1.2.0
+
+# Hapus tag di remote
+git push origin --delete v1.2.0
+
+# Lakukan perbaikan, commit, push, lalu buat tag ulang
+git tag v1.2.0
+git push origin v1.2.0
+```
 
 ---
 
