@@ -106,7 +106,7 @@ jobs:
       - name: Prepare site files
         run: |
           mkdir -p _site
-          cp *.html *.png *.json style.css _site/
+          cp *.html *.png *.webp *.json style.css _site/
           [ -f robots.txt ]  && cp robots.txt _site/
           [ -f sitemap.xml ] && cp sitemap.xml _site/
           [ -f CNAME ]       && cp CNAME _site/
