@@ -11,13 +11,15 @@ Format mengikuti [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) dan pr
 ### Ditambahkan
 
 **Performance**
-- `logo-sm.webp` (23 KiB) — varian logo mobile 440×212 untuk `srcset` responsif
-- `<source srcset="logo-sm.webp 440w, logo.webp 640w" sizes="(max-width: 768px) 220px, 320px">` di hero section agar browser unduh gambar sesuai ukuran tampilan (hemat ~22 KiB di mobile)
+- `logo-sm.webp` (21 KiB) — varian logo mobile 440×212 untuk `srcset` responsif
+- `<source srcset="logo-sm.webp 440w, logo.webp 640w" sizes="(max-width: 768px) 220px, 320px">` di hero section agar browser unduh gambar sesuai ukuran tampilan (hemat ~24 KiB di mobile)
+- `<link rel="preload" as="image" imagesrcset/imagesizes>` di `<head>` untuk preload LCP image sebelum browser parse `<picture>` element, mempercepat LCP
 
 ### Diubah
 
 **Performance**
-- `logo.webp` di-re-encode dengan quality 70 (dari quality default): 45 KiB → 40 KiB
+- `logo.webp` di-re-encode quality 70: 45 KiB → 40 KiB
+- `logo-sm.webp` dikompres quality 45: 23 KiB → 21 KiB
 
 **Aksesibilitas**
 - `.highlight .section-desc` — warna teks diubah dari `#6b7280` ke `#5a6070` agar kontras pada background `#eef3f9` memenuhi WCAG AA (4.07:1 → 5.18:1)
