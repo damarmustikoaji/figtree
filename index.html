@@ -305,6 +305,10 @@
             background: var(--blue-100);
         }
 
+        .highlight .section-desc {
+            color: #5a6070;
+        }
+
         .card-note {
             margin-top: 12px;
             font-size: 13px;
@@ -410,7 +414,9 @@
                 </div>
                 <div class="hero-logo">
                     <picture>
-                        <source srcset="logo.webp" type="image/webp">
+                        <source type="image/webp"
+                            srcset="logo-sm.webp 440w, logo.webp 640w"
+                            sizes="(max-width: 768px) 220px, 320px">
                         <img src="logo.png" alt="Hello Kognisia" width="640" height="308" fetchpriority="high">
                     </picture>
                 </div>

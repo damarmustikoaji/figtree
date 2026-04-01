@@ -6,6 +6,28 @@ Format mengikuti [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) dan pr
 
 ---
 
+## [1.4.0] - 2026-04-01
+
+### Ditambahkan
+
+**Performance**
+- `logo-sm.webp` (23 KiB) — varian logo mobile 440×212 untuk `srcset` responsif
+- `<source srcset="logo-sm.webp 440w, logo.webp 640w" sizes="(max-width: 768px) 220px, 320px">` di hero section agar browser unduh gambar sesuai ukuran tampilan (hemat ~22 KiB di mobile)
+
+### Diubah
+
+**Performance**
+- `logo.webp` di-re-encode dengan quality 70 (dari quality default): 45 KiB → 40 KiB
+
+**Aksesibilitas**
+- `.highlight .section-desc` — warna teks diubah dari `#6b7280` ke `#5a6070` agar kontras pada background `#eef3f9` memenuhi WCAG AA (4.07:1 → 5.18:1)
+
+### Catatan
+
+- Cache TTL 10 menit pada aset statis adalah limitasi GitHub Pages; tidak dapat diperbaiki tanpa menambahkan CDN (misal Cloudflare) di depan GitHub Pages
+
+---
+
 ## [1.3.0] - 2026-04-01
 
 ### Ditambahkan
