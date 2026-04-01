@@ -6,6 +6,68 @@ Format mengikuti [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) dan pr
 
 ---
 
+## [1.2.0] - 2026-04-01
+
+### Ditambahkan
+
+**SEO & Indexing**
+- Canonical URL, meta robots `index, follow`, Open Graph, dan Twitter Card di semua halaman
+- BreadcrumbList JSON-LD Schema.org di `privacy-policy.html` dan `disclaimer-etika.html`
+- Meta description diperpanjang ke 150+ karakter di halaman legal
+- `sitemap.xml` diperluas mencakup `privacy-policy.html` dan `disclaimer-etika.html`
+- Judul halaman homepage diperlengkap: "PT Hello Kognisia Indonesia | Kognisi, Edukasi & Kesehatan Mental"
+
+**PWA & Performance**
+- `manifest.json` dengan nama, deskripsi, warna brand, dan icon
+- `<meta name="theme-color">` dan `<link rel="apple-touch-icon">` di semua halaman
+- `<link rel="preload" as="style">` untuk Google Fonts di semua halaman
+- Atribut `width` dan `height` eksplisit pada semua `<img>` untuk mencegah layout shift (CLS)
+- `width: auto` / `height: auto` di CSS untuk menjaga aspect ratio gambar
+
+**Aksesibilitas**
+- `<main id="main-content">` di semua halaman sebagai landmark semantik
+- Skip link "Langsung ke konten" di semua halaman (muncul saat fokus keyboard)
+
+**Keamanan**
+- `rel="noopener noreferrer"` pada semua external link (`target="_blank"`)
+
+**UI/UX**
+- CTA buttons "Hubungi Kami" dan "Lihat Layanan" di hero section homepage
+- Styling nav links: `font-weight: 500`, hover dengan underline kuning brand
+- Styling teks link: `.card-link`, `.inline-link`, `.footer-link` dengan hover state
+- `manifest.json` termasuk dalam artifact deployment
+
+**Pengujian**
+- Test baru: canonical URL, meta robots, Twitter Card, dan BreadcrumbList JSON-LD
+- Validasi panjang meta description > 100 karakter di halaman legal
+
+### Diubah
+
+**CSS**
+- Ekstrak CSS shared ke `style.css` (variables, reset, nav, footer, skip link)
+- Inline `<style>` tiap halaman hanya berisi CSS spesifik halaman tersebut
+- Duplikasi ~100 baris CSS dihapus dari masing-masing halaman legal
+
+**UI/UX**
+- Hero logo dikecilkan dari `max-width: 400px` ke `max-width: 320px`
+- Hero padding dikurangi dari `100px 0 64px` ke `80px 0 48px`
+
+**CI/CD**
+- Perintah copy file di deploy job dipisah per kategori (required vs optional)
+- File optional (`CNAME`, `.htaccess`, dll) menggunakan guard `[ -f ]` agar tidak error jika tidak ada
+- Validasi eksplisit file wajib (`index.html`, `favicon.png`, `style.css`) setelah copy
+- `style.css` dan `manifest.json` ditambahkan ke artifact deployment
+
+### Diperbaiki
+
+- `manifest.json` gagal dimuat karena tidak disertakan dalam artifact deployment
+- Gambar header distorsi setelah penambahan atribut `width`/`height` tanpa `width: auto` di CSS
+- Logo hero terlalu tinggi karena `height` HTML attribute tidak di-override CSS
+- Deploy script menelan error diam-diam via `|| true` tanpa validasi hasil
+- Footer link di halaman legal tidak memiliki hover state
+
+---
+
 ## [1.1.0] - 2026-03-31
 
 ### Ditambahkan

@@ -5,26 +5,41 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>PT Hello Kognisia Indonesia</title>
+    <title>PT Hello Kognisia Indonesia | Kognisi, Edukasi & Kesehatan Mental</title>
 
     <!-- SEO -->
     <meta name="description"
         content="PT Hello Kognisia Indonesia adalah perusahaan pengembang layanan berbasis kognisi, edukasi, dan kesehatan mental dengan pendekatan profesional, human-centered, dan berkelanjutan." />
     <meta name="keywords"
         content="Hello Kognisia, kognisi, edukasi, kesehatan mental, konseling, psikologi, organisasi" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.hellokognisia.id/" />
 
     <!-- Open Graph -->
-    <meta property="og:title" content="PT Hello Kognisia Indonesia" />
+    <meta property="og:title" content="PT Hello Kognisia Indonesia | Kognisi, Edukasi & Kesehatan Mental" />
     <meta property="og:description"
         content="Mitra pengembangan kognisi, edukasi, dan kesehatan mental berbasis sains dan etika profesional." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.hellokognisia.id" />
+    <meta property="og:url" content="https://www.hellokognisia.id/" />
     <meta property="og:image" content="https://www.hellokognisia.id/logo.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="PT Hello Kognisia Indonesia | Kognisi, Edukasi & Kesehatan Mental" />
+    <meta name="twitter:description"
+        content="Mitra pengembangan kognisi, edukasi, dan kesehatan mental berbasis sains dan etika profesional." />
+    <meta name="twitter:image" content="https://www.hellokognisia.id/logo.png" />
+
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#1f4f8a" />
+    <link rel="apple-touch-icon" href="favicon.png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
 
     <script type="application/ld+json">
 {
@@ -42,39 +57,6 @@
 </script>
 
     <style>
-        :root {
-            --blue-900: #0f2a44;
-            --blue-700: #1f4f8a;
-            --blue-100: #eef3f9;
-            --yellow-500: #f2b233;
-            --gray-900: #111827;
-            --gray-600: #6b7280;
-            --gray-300: #e5e7eb;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-            color: var(--gray-900);
-            background: #ffffff;
-            line-height: 1.75;
-        }
-
-        a {
-            color: var(--blue-700);
-            text-decoration: none;
-        }
-
-        .container {
-            max-width: 1120px;
-            margin: auto;
-            padding: 0 24px;
-        }
-
         /* ================= HEADER ================= */
         header {
             position: fixed;
@@ -91,30 +73,9 @@
             border-bottom: 1px solid var(--gray-300);
         }
 
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 72px;
-        }
-
-        .brand img {
-            height: 34px;
-        }
-
-        nav a {
-            margin-left: 28px;
-            font-size: 14px;
-            color: var(--gray-600);
-        }
-
-        nav a:hover {
-            color: var(--blue-700);
-        }
-
         /* ================= HERO ================= */
         .hero {
-            padding: 100px 0 64px;
+            padding: 80px 0 48px;
             position: relative;
         }
 
@@ -158,16 +119,49 @@
             max-width: 560px;
         }
 
-        .hero small {
-            display: block;
-            margin-top: 20px;
-            font-size: 14px;
-            color: var(--gray-600);
+        .hero-logo img {
+            max-width: 320px;
+            height: auto;
+            filter: drop-shadow(0 30px 40px rgba(15, 42, 68, .15));
         }
 
-        .hero-logo img {
-            max-width: 400px;
-            filter: drop-shadow(0 30px 40px rgba(15, 42, 68, .15));
+        .hero-cta {
+            display: inline-flex;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--blue-700);
+            color: #fff;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: var(--blue-900);
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            padding: 12px 28px;
+            border: 2px solid var(--blue-700);
+            color: var(--blue-700);
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: var(--blue-700);
+            color: #fff;
         }
 
         /* ================= SECTION ================= */
@@ -232,35 +226,41 @@
             max-width: 520px;
         }
 
-        /* ================= HIGHLIGHT ================= */
         .highlight {
             background: var(--blue-100);
         }
 
-        /* ================= KONTAK ================= */
         .card-note {
             margin-top: 12px;
             font-size: 13px;
             color: var(--gray-600);
         }
 
-        /* ================= FOOTER ================= */
-        footer {
-            background: var(--blue-900);
-            color: #cbd5e1;
-            padding: 60px 0;
+        /* ================= LINKS ================= */
+        .card-link {
+            display: inline-block;
+            margin-top: 16px;
             font-size: 14px;
+            font-weight: 600;
+            color: var(--blue-700);
+            text-decoration: none;
+            transition: color 0.2s;
         }
 
-        footer small {
-            color: #94a3b8;
-            display: block;
-            margin-top: 8px;
+        .card-link:hover {
+            color: var(--blue-900);
+            text-decoration: underline;
         }
 
-        .footer-link {
-            color: #94a3b8;
-            font-size: smaller;
+        .inline-link {
+            color: var(--blue-700);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        .inline-link:hover {
+            border-bottom-color: var(--blue-700);
         }
 
         /* ================= RESPONSIVE ================= */
@@ -283,18 +283,25 @@
                 max-width: 220px;
                 margin-top: 36px;
             }
+
+            .hero-cta {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
         }
     </style>
 </head>
 
 <body>
 
+    <a class="skip-link" href="#main-content">Langsung ke konten</a>
+
     <!-- HEADER -->
     <header id="header">
         <div class="container nav">
             <div class="brand">
                 <a href="index.html">
-                    <img src="favicon.png" alt="Hello Kognisia Logo">
+                    <img src="favicon.png" alt="Hello Kognisia Logo" width="172" height="163">
                 </a>
             </div>
             <nav>
@@ -305,93 +312,101 @@
         </div>
     </header>
 
-    <!-- HERO -->
-    <section class="hero">
-        <div class="hero-bg"></div>
-        <div class="container hero-content">
-            <div>
-                <h1>Mengembangkan Cara Berpikir untuk Hidup yang Lebih Sehat</h1>
-                <p>
-                    PT Hello Kognisia Indonesia adalah mitra pengembangan kognisi, edukasi,
-                    dan kesehatan mental berbasis sains, empati, dan etika profesional.
-                </p>
-                <p>Berfokus pada individu, organisasi, dan keberlanjutan jangka panjang.</p>
-            </div>
-            <div class="hero-logo">
-                <img src="logo.png" alt="Hello Kognisia">
-            </div>
-        </div>
-    </section>
+    <main id="main-content">
 
-    <!-- ABOUT -->
-    <section id="about">
-        <div class="container">
-            <h2 class="section-title">Tentang Kami</h2>
-            <p class="section-desc">
-                PT Hello Kognisia Indonesia mengembangkan dan mengelola inisiatif di bidang kognisi,
-                edukasi, dan kesehatan mental. Kami memandang kualitas berpikir sebagai fondasi utama
-                bagi individu dan organisasi untuk berkembang secara sehat dan berkelanjutan.
-            </p>
-
-            <div class="grid">
-                <div class="card">
-                    <h3>Human-Centered</h3>
-                    <p>Setiap layanan dirancang dengan empati, keamanan, dan kebutuhan manusia sebagai pusatnya.</p>
-                </div>
-                <div class="card">
-                    <h3>Berbasis Sains & Edukasi</h3>
-                    <p>Kami menggabungkan pendekatan ilmiah, edukatif, dan praktik profesional yang bertanggung jawab.</p>
-                </div>
-                <div class="card">
-                    <h3>Profesional & Etis</h3>
-                    <p>Dikembangkan bersama tenaga ahli dengan komitmen pada etika dan privasi.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SERVICES -->
-    <section id="services" class="highlight">
-        <div class="container">
-            <h2 class="section-title">Layanan</h2>
-            <p class="section-desc">
-                Kami mengembangkan platform dan layanan yang mendukung kesehatan mental,
-                edukasi, dan penguatan kapasitas individu secara aman dan terpercaya.
-            </p>
-
-            <div class="grid grid--solo">
-                <div class="card">
-                    <h3>HelloKonseling.online</h3>
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-bg"></div>
+            <div class="container hero-content">
+                <div>
+                    <h1>Mengembangkan Cara Berpikir untuk Hidup yang Lebih Sehat</h1>
                     <p>
-                        Platform konseling dan asesmen psikologis yang menghubungkan individu
-                        dengan psikolog dan tenaga profesional secara terjaga dan aman.
+                        PT Hello Kognisia Indonesia adalah mitra pengembangan kognisi, edukasi,
+                        dan kesehatan mental berbasis sains, empati, dan etika profesional.
                     </p>
-                    <a href="https://hellokonseling.online" target="_blank">Kunjungi platform →</a>
+                    <p>Berfokus pada individu, organisasi, dan keberlanjutan jangka panjang.</p>
+                    <div class="hero-cta">
+                        <a href="#contact" class="btn-primary">Hubungi Kami</a>
+                        <a href="#services" class="btn-secondary">Lihat Layanan</a>
+                    </div>
+                </div>
+                <div class="hero-logo">
+                    <img src="logo.png" alt="Hello Kognisia" width="1086" height="522">
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- CONTACT -->
-    <section id="contact">
-        <div class="container">
-            <h2 class="section-title">Kontak</h2>
-            <div class="card">
-                <p><strong>PT Hello Kognisia Indonesia</strong></p>
-                <p>Email:
-                    <a href="mailto:info@hellokognisia.id">info@hellokognisia.id</a>
+        <!-- ABOUT -->
+        <section id="about">
+            <div class="container">
+                <h2 class="section-title">Tentang Kami</h2>
+                <p class="section-desc">
+                    PT Hello Kognisia Indonesia mengembangkan dan mengelola inisiatif di bidang kognisi,
+                    edukasi, dan kesehatan mental. Kami memandang kualitas berpikir sebagai fondasi utama
+                    bagi individu dan organisasi untuk berkembang secara sehat dan berkelanjutan.
                 </p>
-                <p>Instagram:
-                    <a href="https://www.instagram.com/hellokognisia.id" target="_blank">
-                        @hellokognisia.id
-                    </a>
-                </p>
-                <p class="card-note">
-                    Beroperasi dengan komitmen pada etika profesional, privasi, dan keamanan data.
-                </p>
+
+                <div class="grid">
+                    <div class="card">
+                        <h3>Human-Centered</h3>
+                        <p>Setiap layanan dirancang dengan empati, keamanan, dan kebutuhan manusia sebagai pusatnya.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Berbasis Sains & Edukasi</h3>
+                        <p>Kami menggabungkan pendekatan ilmiah, edukatif, dan praktik profesional yang bertanggung jawab.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Profesional & Etis</h3>
+                        <p>Dikembangkan bersama tenaga ahli dengan komitmen pada etika dan privasi.</p>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- SERVICES -->
+        <section id="services" class="highlight">
+            <div class="container">
+                <h2 class="section-title">Layanan</h2>
+                <p class="section-desc">
+                    Kami mengembangkan platform dan layanan yang mendukung kesehatan mental,
+                    edukasi, dan penguatan kapasitas individu secara aman dan terpercaya.
+                </p>
+
+                <div class="grid grid--solo">
+                    <div class="card">
+                        <h3>HelloKonseling.online</h3>
+                        <p>
+                            Platform konseling dan asesmen psikologis yang menghubungkan individu
+                            dengan psikolog dan tenaga profesional secara terjaga dan aman.
+                        </p>
+                        <a href="https://hellokonseling.online" target="_blank" rel="noopener noreferrer"
+                            class="card-link">Kunjungi platform →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact">
+            <div class="container">
+                <h2 class="section-title">Kontak</h2>
+                <div class="card">
+                    <p><strong>PT Hello Kognisia Indonesia</strong></p>
+                    <p>Email:
+                        <a href="mailto:info@hellokognisia.id" class="inline-link">info@hellokognisia.id</a>
+                    </p>
+                    <p>Instagram:
+                        <a href="https://www.instagram.com/hellokognisia.id" target="_blank"
+                            rel="noopener noreferrer" class="inline-link">@hellokognisia.id</a>
+                    </p>
+                    <p class="card-note">
+                        Beroperasi dengan komitmen pada etika profesional, privasi, dan keamanan data.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
 
     <!-- FOOTER -->
     <footer>

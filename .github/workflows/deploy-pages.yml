@@ -106,7 +106,14 @@ jobs:
       - name: Prepare site files
         run: |
           mkdir -p _site
-          cp -r *.html *.png *.txt *.xml CNAME .htaccess _site/ 2>/dev/null || true
+          cp *.html *.png *.json style.css _site/
+          [ -f robots.txt ]  && cp robots.txt _site/
+          [ -f sitemap.xml ] && cp sitemap.xml _site/
+          [ -f CNAME ]       && cp CNAME _site/
+          [ -f .htaccess ]   && cp .htaccess _site/
+          test -f _site/index.html  || { echo "ERROR: index.html missing"; exit 1; }
+          test -f _site/favicon.png || { echo "ERROR: favicon.png missing"; exit 1; }
+          test -f _site/style.css   || { echo "ERROR: style.css missing"; exit 1; }
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3

@@ -84,6 +84,12 @@ test('Homepage SEO meta tags exist and valid', async ({ page }) => {
     expect(desc).toBeTruthy();
     expect(desc.length).toBeGreaterThan(50);
 
+    const robots = await page.locator('meta[name="robots"]').getAttribute('content');
+    expect(robots).toContain('index');
+
+    const canonical = await page.locator('link[rel="canonical"]').getAttribute('href');
+    expect(canonical).toMatch(/^https:\/\/www\.hellokognisia\.id/);
+
     await expect(page.locator('h1')).toHaveCount(1);
 });
 
@@ -102,6 +108,19 @@ test('Homepage Open Graph tags exist and have absolute URLs', async ({ page }) =
 
     const ogUrl = await page.locator('meta[property="og:url"]').getAttribute('content');
     expect(ogUrl).toMatch(/^https?:\/\//);
+});
+
+test('Homepage Twitter Card tags exist', async ({ page }) => {
+    await page.goto('/');
+
+    const twitterCard = await page.locator('meta[name="twitter:card"]').getAttribute('content');
+    expect(twitterCard).toBeTruthy();
+
+    const twitterTitle = await page.locator('meta[name="twitter:title"]').getAttribute('content');
+    expect(twitterTitle).toMatch(/Hello Kognisia/i);
+
+    const twitterImage = await page.locator('meta[name="twitter:image"]').getAttribute('content');
+    expect(twitterImage).toMatch(/^https?:\/\//);
 });
 
 test('Homepage has valid Schema.org JSON-LD', async ({ page }) => {
@@ -183,13 +202,29 @@ test('Privacy Policy page renders all sections and footer', async ({ page }) => 
     await page.screenshot({ path: 'test-results/privacy-policy.png', fullPage: true });
 });
 
-test('Privacy Policy page meta title contains brand name', async ({ page }) => {
+test('Privacy Policy page SEO meta tags exist and valid', async ({ page }) => {
     await page.goto('/privacy-policy.html');
     expect(await page.title()).toMatch(/Hello Kognisia/i);
 
     const desc = await page.locator('meta[name="description"]').getAttribute('content');
     expect(desc).toBeTruthy();
-    expect(desc.length).toBeGreaterThan(30);
+    expect(desc.length).toBeGreaterThan(100);
+
+    const robots = await page.locator('meta[name="robots"]').getAttribute('content');
+    expect(robots).toContain('index');
+
+    const canonical = await page.locator('link[rel="canonical"]').getAttribute('href');
+    expect(canonical).toContain('privacy-policy');
+
+    const ogUrl = await page.locator('meta[property="og:url"]').getAttribute('content');
+    expect(ogUrl).toMatch(/^https?:\/\//);
+
+    const twitterCard = await page.locator('meta[name="twitter:card"]').getAttribute('content');
+    expect(twitterCard).toBeTruthy();
+
+    const schemaText = await page.locator('script[type="application/ld+json"]').textContent();
+    const schema = JSON.parse(schemaText);
+    expect(schema['@type']).toBe('BreadcrumbList');
 });
 
 // ─────────────────────────────────────────────
@@ -212,13 +247,29 @@ test('Disclaimer page renders all sections and footer', async ({ page }) => {
     await page.screenshot({ path: 'test-results/disclaimer-etika.png', fullPage: true });
 });
 
-test('Disclaimer page meta title contains brand name', async ({ page }) => {
+test('Disclaimer page SEO meta tags exist and valid', async ({ page }) => {
     await page.goto('/disclaimer-etika.html');
     expect(await page.title()).toMatch(/Hello Kognisia/i);
 
     const desc = await page.locator('meta[name="description"]').getAttribute('content');
     expect(desc).toBeTruthy();
-    expect(desc.length).toBeGreaterThan(30);
+    expect(desc.length).toBeGreaterThan(100);
+
+    const robots = await page.locator('meta[name="robots"]').getAttribute('content');
+    expect(robots).toContain('index');
+
+    const canonical = await page.locator('link[rel="canonical"]').getAttribute('href');
+    expect(canonical).toContain('disclaimer-etika');
+
+    const ogUrl = await page.locator('meta[property="og:url"]').getAttribute('content');
+    expect(ogUrl).toMatch(/^https?:\/\//);
+
+    const twitterCard = await page.locator('meta[name="twitter:card"]').getAttribute('content');
+    expect(twitterCard).toBeTruthy();
+
+    const schemaText = await page.locator('script[type="application/ld+json"]').textContent();
+    const schema = JSON.parse(schemaText);
+    expect(schema['@type']).toBe('BreadcrumbList');
 });
 
 // ─────────────────────────────────────────────

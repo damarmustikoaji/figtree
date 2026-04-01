@@ -1,0 +1,17 @@
+{
+  "name": "PT Hello Kognisia Indonesia",
+  "short_name": "Hello Kognisia",
+  "description": "Mitra pengembangan kognisi, edukasi, dan kesehatan mental berbasis sains dan etika profesional.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#ffffff",
+  "theme_color": "#1f4f8a",
+  "lang": "id",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "172x163",
+      "type": "image/png"
+    }
+  ]
+}

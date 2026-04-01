@@ -1,0 +1,110 @@
+/* ================= VARIABLES ================= */
+:root {
+    --blue-900: #0f2a44;
+    --blue-700: #1f4f8a;
+    --blue-100: #eef3f9;
+    --yellow-500: #f2b233;
+    --gray-900: #111827;
+    --gray-600: #6b7280;
+    --gray-300: #e5e7eb;
+}
+
+/* ================= RESET ================= */
+* {
+    box-sizing: border-box;
+}
+
+/* ================= BASE ================= */
+body {
+    margin: 0;
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--gray-900);
+    background: #ffffff;
+    line-height: 1.75;
+}
+
+a {
+    color: var(--blue-700);
+    text-decoration: none;
+}
+
+/* ================= ACCESSIBILITY ================= */
+.skip-link {
+    position: absolute;
+    top: -100%;
+    left: 8px;
+    background: var(--blue-700);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 0 0 8px 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    z-index: 100;
+    transition: top 0.2s;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* ================= LAYOUT ================= */
+.container {
+    max-width: 1120px;
+    margin: auto;
+    padding: 0 24px;
+}
+
+/* ================= NAV ================= */
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 72px;
+}
+
+.brand img {
+    height: 34px;
+    width: auto;
+}
+
+nav a {
+    margin-left: 28px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray-600);
+    text-decoration: none;
+    padding-bottom: 2px;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+nav a:hover {
+    color: var(--blue-700);
+    border-bottom-color: var(--yellow-500);
+}
+
+/* ================= FOOTER ================= */
+footer {
+    background: var(--blue-900);
+    color: #cbd5e1;
+    padding: 60px 0;
+    font-size: 14px;
+}
+
+footer small {
+    color: #94a3b8;
+    display: block;
+    margin-top: 8px;
+}
+
+.footer-link {
+    color: #94a3b8;
+    font-size: smaller;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-link:hover {
+    color: #cbd5e1;
+}
