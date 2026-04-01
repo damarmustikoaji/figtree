@@ -34,7 +34,7 @@
     <meta name="theme-color" content="#1f4f8a" />
     <link rel="apple-touch-icon" href="favicon.png" />
 
-    <link rel="preload" as="image" type="image/webp"
+    <link rel="preload" as="image" type="image/webp" fetchpriority="high"
         imagesrcset="logo-sm.webp 440w, logo.webp 640w"
         imagesizes="(max-width: 768px) 220px, 320px">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -513,7 +513,7 @@
         const header = document.getElementById("header");
         window.addEventListener("scroll", () => {
             header.classList.toggle("scrolled", window.scrollY > 20);
-        });
+        }, { passive: true });
     </script>
 
 </body>

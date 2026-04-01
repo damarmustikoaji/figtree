@@ -13,7 +13,7 @@ Format mengikuti [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) dan pr
 **Performance**
 - `logo-sm.webp` (21 KiB) — varian logo mobile 440×212 untuk `srcset` responsif
 - `<source srcset="logo-sm.webp 440w, logo.webp 640w" sizes="(max-width: 768px) 220px, 320px">` di hero section agar browser unduh gambar sesuai ukuran tampilan (hemat ~24 KiB di mobile)
-- `<link rel="preload" as="image" imagesrcset/imagesizes>` di `<head>` untuk preload LCP image sebelum browser parse `<picture>` element, mempercepat LCP
+- `<link rel="preload" as="image" imagesrcset/imagesizes fetchpriority="high">` di `<head>` untuk preload LCP image dengan prioritas tinggi sebelum browser parse `<picture>` element
 
 ### Diubah
 
@@ -24,9 +24,13 @@ Format mengikuti [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) dan pr
 **Aksesibilitas**
 - `.highlight .section-desc` — warna teks diubah dari `#6b7280` ke `#5a6070` agar kontras pada background `#eef3f9` memenuhi WCAG AA (4.07:1 → 5.18:1)
 
+**JavaScript**
+- Scroll event listener ditambahkan `{ passive: true }` untuk menghilangkan forced reflow (32ms) yang diflag Lighthouse
+
 ### Catatan
 
-- Cache TTL 10 menit pada aset statis adalah limitasi GitHub Pages; tidak dapat diperbaiki tanpa menambahkan CDN (misal Cloudflare) di depan GitHub Pages
+- **Performance 100 mobile tidak realistis** selama menggunakan Google Fonts + image di atas simulasi 4G Lighthouse. FCP/LCP 2.6s adalah waktu download fisik di jaringan throttled, bukan bug kode
+- Cache TTL 10 menit pada aset statis adalah limitasi GitHub Pages; tidak dapat diperbaiki tanpa CDN (misal Cloudflare)
 
 ---
 
