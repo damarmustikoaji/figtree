@@ -2,58 +2,213 @@
 <html lang="id">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Halaman Tidak Ditemukan | Hello Kognisia Indonesia</title>
+    <title>Halaman Tidak Ditemukan | PT Hello Kognisia Indonesia</title>
 
-  <meta name="robots" content="noindex" />
-  <link rel="icon" href="favicon.png" />
+    <meta name="robots" content="noindex, follow" />
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Inter, system-ui, sans-serif;
-      background: #ffffff;
-      color: #111827;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
-    }
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#1f4f8a" />
+    <link rel="apple-touch-icon" href="favicon.png" />
 
-    .box {
-      max-width: 480px;
-      padding: 24px;
-    }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
 
-    h1 {
-      font-size: 48px;
-      margin-bottom: 12px;
-      color: #0f2a44;
-    }
+    <style>
+        /* ================= VARIABLES ================= */
+        :root {
+            --blue-900: #0f2a44;
+            --blue-700: #1f4f8a;
+            --blue-100: #eef3f9;
+            --yellow-500: #f2b233;
+            --gray-900: #111827;
+            --gray-600: #6b7280;
+            --gray-300: #e5e7eb;
+        }
 
-    p {
-      color: #6b7280;
-      margin-bottom: 24px;
-      font-size: 16px;
-    }
+        * { box-sizing: border-box; }
 
-    a {
-      color: #1f4f8a;
-      text-decoration: none;
-      font-weight: 500;
-    }
-  </style>
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--gray-900);
+            background: #ffffff;
+            line-height: 1.75;
+        }
+
+        a { color: var(--blue-700); text-decoration: none; }
+
+        .skip-link {
+            position: absolute;
+            top: -100%;
+            left: 8px;
+            background: var(--blue-700);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 0 0 8px 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            z-index: 100;
+            transition: top 0.2s;
+        }
+
+        .skip-link:focus { top: 0; }
+
+        .container { max-width: 1120px; margin: auto; padding: 0 24px; }
+
+        .nav { display: flex; justify-content: space-between; align-items: center; height: 72px; }
+
+        .brand img { height: 34px; width: auto; }
+
+        nav a {
+            margin-left: 28px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--gray-600);
+            text-decoration: none;
+            padding-bottom: 2px;
+            border-bottom: 2px solid transparent;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        nav a:hover { color: var(--blue-700); border-bottom-color: var(--yellow-500); }
+
+        footer {
+            background: var(--blue-900);
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        footer small { color: #94a3b8; display: block; margin-top: 8px; }
+
+        .footer-link {
+            color: #94a3b8;
+            font-size: smaller;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover { color: #cbd5e1; }
+
+        /* ================= PAGE SPECIFIC ================= */
+        header {
+            background: #fff;
+            border-bottom: 1px solid var(--gray-300);
+        }
+
+        footer {
+            padding: 40px 0;
+        }
+
+        .error-section {
+            padding: 80px 0 100px;
+            text-align: center;
+        }
+
+        .error-code {
+            font-size: 96px;
+            font-weight: 700;
+            color: var(--blue-100);
+            line-height: 1;
+            margin: 0 0 8px;
+            letter-spacing: -4px;
+        }
+
+        .error-title {
+            font-size: 28px;
+            color: var(--blue-900);
+            margin: 0 0 16px;
+        }
+
+        .error-title::after {
+            content: "";
+            display: block;
+            width: 42px;
+            height: 3px;
+            background: var(--yellow-500);
+            margin: 10px auto 0;
+        }
+
+        .error-desc {
+            color: var(--gray-600);
+            font-size: 16px;
+            max-width: 440px;
+            margin: 0 auto 32px;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--blue-700);
+            color: #fff;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .btn-primary:hover { background: var(--blue-900); }
+    </style>
 </head>
 
 <body>
-  <div class="box">
-    <h1>404</h1>
-    <p>Halaman yang Anda cari tidak tersedia atau telah dipindahkan.</p>
-    <a href="/">Kembali</a>
-  </div>
+
+    <a class="skip-link" href="#main-content">Langsung ke konten</a>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container nav">
+            <div class="brand">
+                <a href="index.html">
+                    <picture>
+                        <source srcset="favicon.webp" type="image/webp">
+                        <img src="favicon.png" alt="Hello Kognisia Logo" width="136" height="128">
+                    </picture>
+                </a>
+            </div>
+            <nav>
+                <a href="index.html#about">Tentang</a>
+                <a href="index.html#services">Layanan</a>
+                <a href="index.html#contact">Kontak</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section class="error-section">
+            <div class="container">
+                <p class="error-code">404</p>
+                <h1 class="error-title">Halaman Tidak Ditemukan</h1>
+                <p class="error-desc">
+                    Halaman yang Anda cari tidak ada atau telah dipindahkan.
+                    Silakan kembali ke beranda.
+                </p>
+                <a href="index.html" class="btn-primary">Kembali ke Beranda</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            © <span id="year"></span> PT Hello Kognisia Indonesia
+            <small>Membangun kualitas hidup melalui cara berpikir yang sehat dan sadar.</small>
+            <a class="footer-link" href="privacy-policy.html">Kebijakan Privasi</a> ·
+            <a class="footer-link" href="disclaimer-etika.html">Sanggahan & Etika</a>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+
 </body>
 
 </html>

@@ -139,14 +139,15 @@ test('Homepage has valid Schema.org JSON-LD', async ({ page }) => {
 // 404 PAGE
 // ─────────────────────────────────────────────
 
-test('404 page returns 404, shows message and back link', async ({ page }) => {
+test('404 page returns 404, shows branded layout and back link', async ({ page }) => {
     const res = await page.goto('/halaman-tidak-ada');
     expect(res.status()).toBe(404);
 
-    await expect(page.locator('h1')).toContainText('404');
-    await expect(page.locator('p')).toBeVisible();
-    await expect(page.locator('a[href="/"]')).toBeVisible();
-    await expect(page.locator('a[href="/"]')).toContainText(/Kembali/i);
+    await expect(page.locator('.error-code')).toContainText('404');
+    await expect(page.locator('h1')).toContainText(/Halaman Tidak Ditemukan/i);
+    await expect(page.locator('.brand img')).toBeVisible();
+    await expect(page.locator('footer')).toBeVisible();
+    await expect(page.locator('a.btn-primary[href="index.html"]')).toContainText(/Kembali ke Beranda/i);
 
     await page.screenshot({ path: 'test-results/404.png', fullPage: true });
 });

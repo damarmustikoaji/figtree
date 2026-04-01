@@ -6,6 +6,19 @@ Format mengikuti [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) dan pr
 
 ---
 
+## [1.3.0] - 2026-04-01
+
+### Ditambahkan
+
+**UI/UX**
+- Halaman 404 custom (`404.html`) dengan branding konsisten: header logo+nav, pesan error bertyle brand, tombol "Kembali ke Beranda", dan footer
+- `meta name="robots" content="noindex, follow"` pada halaman 404
+
+**Pengujian**
+- Test 404 diperbarui: verifikasi layout bermerek (logo, footer, `.error-code`, `h1`, tombol CTA)
+
+---
+
 ## [1.2.0] - 2026-04-01
 
 ### Ditambahkan
